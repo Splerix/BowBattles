@@ -1,0 +1,37 @@
+name: BowBattle
+version: 1
+main: me.splerix.bowbattle.BowBattle
+api-version: 1.19
+authors: [ Splerix ]
+
+commands:
+  dev:
+
+  gma:
+
+  gms:
+
+  gmc:
+
+  gmsp:
+
+  spawn:
+    aliases: hub
+
+  gamefinder:
+
+  deathmatch:
+
+  forcestart:
+
+  queue:
+
+  leavequeue:
+
+  heal:
+
+  bowbattle:
+
+  forceend:
+
+  spectator:

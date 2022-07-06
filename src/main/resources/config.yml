@@ -1,0 +1,494 @@
+reload:
+  message: "&6You have reloaded the plugin"
+
+spawn:
+  warp:
+    - "x 0.5"
+    - "y 100"
+    - "z 0.5"
+  high:
+    - "x 17"
+    - "y 120"
+    - "z 17"
+  low:
+    - "x -15"
+    - "y 80"
+    - "z -15"
+
+maps:
+  names:
+    - "desert"
+    - "nether"
+    - "end"
+    - "cave"
+    - "ocean"
+    - "woolland"
+  desert:
+    low:
+      - "x 87"
+      - "y 99"
+      - "z -12"
+    high:
+      - "x 113"
+      - "y 112"
+      - "z 13"
+    teams:
+      red:
+        low:
+          - "x 88"
+          - "y 100"
+          - "z 3"
+        high:
+          - "x 97"
+          - "y 112"
+          - "z 12"
+        warp:
+          - "x 90.5"
+          - "y 105"
+          - "z 10.5"
+      green:
+        low:
+          - "x 88"
+          - "y 100"
+          - "z -11"
+        high:
+          - "x 97"
+          - "y 112"
+          - "z -2"
+        warp:
+          - "x 90.5"
+          - "y 105"
+          - "z -9.5"
+      blue:
+        low:
+          - "x 112"
+          - "y 100"
+          - "z -11"
+        high:
+          - "x 103"
+          - "y 112"
+          - "z -2"
+        warp:
+          - "x 110.5"
+          - "y 105"
+          - "z -9.5"
+      yellow:
+        low:
+          - "x 112"
+          - "y 100"
+          - "z 12"
+        high:
+          - "x 103"
+          - "y 112"
+          - "z 3"
+        warp:
+          - "x 110.5"
+          - "y 105"
+          - "z 10.5"
+    spectator:
+      warp:
+        - "x 100.5"
+        - "y 108"
+        - "z 0.5"
+    overtime:
+      blocklocation:
+        - "x 100"
+        - "y 96"
+        - "z 0"
+  nether:
+    low:
+      - "x 87"
+      - "y 99"
+      - "z 100"
+    high:
+      - "x 113"
+      - "y 112"
+      - "z 126"
+    teams:
+      red:
+        low:
+          - "x 88"
+          - "y 100"
+          - "z 116"
+        high:
+          - "x 97"
+          - "y 100"
+          - "z 125"
+        warp:
+          - "x 89.5"
+          - "y 100"
+          - "z 124.5"
+      green:
+        low:
+          - "x 88"
+          - "y 100"
+          - "z 101"
+        high:
+          - "x 97"
+          - "y 112"
+          - "z 110"
+        warp:
+          - "x 89.5"
+          - "y 100"
+          - "z 102.5"
+      blue:
+        low:
+          - "x 103"
+          - "y 100"
+          - "z 101"
+        high:
+          - "x 112"
+          - "y 112"
+          - "z 110"
+        warp:
+          - "x 111.5"
+          - "y 105"
+          - "z 102.5"
+      yellow:
+        low:
+          - "x 103"
+          - "y 100"
+          - "z 116"
+        high:
+          - "x 112"
+          - "y 112"
+          - "z 125"
+        warp:
+          - "x 111.5"
+          - "y 100"
+          - "z 124.5"
+    spectator:
+      warp:
+        - "x 100"
+        - "y 106"
+        - "z 113"
+    overtime:
+      blocklocation:
+        - "x 100"
+        - "y 96"
+        - "z 0"
+  end:
+    low:
+      - "x 100"
+      - "y 99"
+      - "z -130"
+    high:
+      - "x 130"
+      - "y 115"
+      - "z -100"
+    teams:
+      red:
+        low:
+          - "x 101"
+          - "y 100"
+          - "z -111"
+        high:
+          - "x 111"
+          - "y 115"
+          - "z -101"
+        warp:
+          - "x 102.5"
+          - "y 100"
+          - "z -102.5"
+      green:
+        low:
+          - "x 101"
+          - "y 100"
+          - "z -129"
+        high:
+          - "x 111"
+          - "y 115"
+          - "z -119"
+        warp:
+          - "x 102.5"
+          - "y 100"
+          - "z -128.5"
+      blue:
+        low:
+          - "x 119"
+          - "y 100"
+          - "z -129"
+        high:
+          - "x 129"
+          - "y 115"
+          - "z -119"
+        warp:
+          - "x 128.5"
+          - "y 100"
+          - "z -128.5"
+      yellow:
+        low:
+          - "x 119"
+          - "y 100"
+          - "z -111"
+        high:
+          - "x 129"
+          - "y 115"
+          - "z -101"
+        warp:
+          - "x 128.5"
+          - "y 100"
+          - "z -104.5"
+    spectator:
+      warp:
+        - "x 115.5"
+        - "y 109"
+        - "z -115.5"
+    overtime:
+      blocklocation:
+        - "x 115"
+        - "y 96"
+        - "z -115"
+  cave:
+    low:
+      - "x 200"
+      - "y 99"
+      - "z -130"
+    high:
+      - "x 231"
+      - "y 115"
+      - "z -100"
+    teams:
+      red:
+        low:
+          - "x 201"
+          - "y 100"
+          - "z -112"
+        high:
+          - "x 112"
+          - "y 115"
+          - "z -101"
+        warp:
+          - "x 201.5"
+          - "y 101"
+          - "z -101.5"
+      green:
+        low:
+          - "x 201"
+          - "y 100"
+          - "z -129"
+        high:
+          - "x 112"
+          - "y 115"
+          - "z -118"
+        warp:
+          - "x 202.5"
+          - "y 100"
+          - "z -128.5"
+      blue:
+        low:
+          - "x 219"
+          - "y 100"
+          - "z -129"
+        high:
+          - "x 230"
+          - "y 115"
+          - "z -118"
+        warp:
+          - "x 228.5"
+          - "y 103"
+          - "z -127.5"
+      yellow:
+        low:
+          - "x 219"
+          - "y 100"
+          - "z -112"
+        high:
+          - "x 230"
+          - "y 115"
+          - "z -101"
+        warp:
+          - "x 229.5"
+          - "y 100"
+          - "z -102.5"
+    spectator:
+      warp:
+        - "x 216.5"
+        - "y 110"
+        - "z -115.5"
+    overtime:
+      blocklocation:
+        - "x 216"
+        - "y 96"
+        - "z -115"
+  ocean:
+    low:
+      - "x 0"
+      - "y 99"
+      - "z -130"
+    high:
+      - "x 30"
+      - "y 116"
+      - "z -100"
+    teams:
+      red:
+        low:
+          - "x 2"
+          - "y 103"
+          - "z -108"
+        high:
+          - "x 14"
+          - "y 116"
+          - "z -102"
+        warp:
+          - "x 5.5"
+          - "y 103"
+          - "z -105.5"
+      green:
+        low:
+          - "x 2"
+          - "y 103"
+          - "z -127"
+        high:
+          - "x 7"
+          - "y 116"
+          - "z -116"
+        warp:
+          - "x 5.5"
+          - "y 103"
+          - "z -125.5"
+      blue:
+        low:
+          - "x 16"
+          - "y 103"
+          - "z -127"
+        high:
+          - "x 28"
+          - "y 116"
+          - "z -122"
+        warp:
+          - "x 25.5"
+          - "y 103"
+          - "z -125.5"
+      yellow:
+        low:
+          - "x 23"
+          - "y 103"
+          - "z -114"
+        high:
+          - "x 27"
+          - "y 105"
+          - "z -103"
+        warp:
+          - "x 128.5"
+          - "y 100"
+          - "z -104.5"
+    spectator:
+      warp:
+        - "x 15.5"
+        - "y 113"
+        - "z -115.5"
+    overtime:
+      blocklocation:
+        - "x 15"
+        - "y 96"
+        - "z -115"
+  woolland:
+    low:
+      - "x 200"
+      - "y 100"
+      - "z -125"
+    high:
+      - "x 226"
+      - "y 116"
+      - "z 0"
+    teams:
+      red:
+        low:
+          - "x 201"
+          - "y 100"
+          - "z -9"
+        high:
+          - "x 210"
+          - "y 100"
+          - "z 0"
+        warp:
+          - "x 204.5"
+          - "y 102"
+          - "z -3.5"
+      green:
+        low:
+          - "x 201"
+          - "y 100"
+          - "z -124"
+        high:
+          - "x 210"
+          - "y 116"
+          - "z -15"
+        warp:
+          - "x 204.5"
+          - "y 102"
+          - "z -21.5"
+      blue:
+        low:
+          - "x 216"
+          - "y 100"
+          - "z -24"
+        high:
+          - "x 225"
+          - "y 116"
+          - "z -15"
+        warp:
+          - "x 222.5"
+          - "y 102"
+          - "z -21.5"
+      yellow:
+        low:
+          - "x 216"
+          - "y 100"
+          - "z -9"
+        high:
+          - "x 225"
+          - "y 116"
+          - "z 0"
+        warp:
+          - "x 222.5"
+          - "y 102"
+          - "z -3.5"
+    spectator:
+      warp:
+        - "x 213.5"
+        - "y 107"
+        - "z -12.5"
+    overtime:
+      blocklocation:
+        - "x 213"
+        - "y 96"
+        - "z -12"
+
+
+deathmatch:
+  warp:
+    - "x -102.5"
+    - "y 104"
+    - "z 0.5"
+  high:
+    - "x -89"
+    - "y 255"
+    - "z 13"
+  low:
+    - "x -115"
+    - "y 98"
+    - "z -12"
+  safezonehigh:
+    - "x -100"
+    - "y 108"
+    - "z 2"
+  safezonelow:
+    - "x -104"
+    - "y 100"
+    - "z -1"
+
+chatformat:
+  ranks:
+    - "owner"
+    - "admin"
+    - "mod"
+    - "helper"
+    - "default"
+  prefixes:
+    - "&aOwner"
+    - "&4Admin"
+    - "&9Mod"
+    - "&eHelper"
+    - "&7Default"
