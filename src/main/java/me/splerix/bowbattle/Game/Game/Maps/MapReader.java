@@ -2,12 +2,9 @@ package me.splerix.bowbattle.Game.Game.Maps;
 
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MapReader {
-    private Plugin plugin;
-    private String[] mapList;
+    private final Plugin plugin;
+    private final String[] mapList;
 
     MapReader(Plugin plugin) {
         this.plugin = plugin;

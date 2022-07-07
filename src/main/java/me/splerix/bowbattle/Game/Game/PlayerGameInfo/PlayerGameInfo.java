@@ -41,9 +41,6 @@ public class PlayerGameInfo {
     public int getKills() {
         return kills;
     }
-    public int getDeaths() {
-        return deaths;
-    }
     public int getLifes() {
         return lifes;
     }
@@ -63,18 +60,8 @@ public class PlayerGameInfo {
     public void decLifes() {
         lifes--;
     }
-
     public void setAlive(boolean alive) {
         this.alive = alive;
-    }
-    public void setKills(int kills) {
-        this.kills = kills;
-    }
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-    public void setLifes(int lifes) {
-        this.lifes = lifes;
     }
     public void setPlayerSpawn(Location loc) {
         this.playerSpawn = loc;

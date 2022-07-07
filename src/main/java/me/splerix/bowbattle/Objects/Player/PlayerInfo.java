@@ -1,7 +1,5 @@
 package me.splerix.bowbattle.Objects.Player;
 
-import org.bukkit.entity.Player;
-
 import java.io.Serializable;
 import java.util.UUID;
 

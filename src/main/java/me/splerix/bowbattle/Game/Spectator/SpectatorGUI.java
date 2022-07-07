@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpectatorGUI {
-    private Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_PURPLE + "Spectator Menu");
-    List<String> lore = new ArrayList<String>();
+    private final Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_PURPLE + "Spectator Menu");
+    final List<String> lore = new ArrayList<>();
 
     public SpectatorGUI() {
         fillInv();
@@ -33,8 +33,7 @@ public class SpectatorGUI {
         meta.setDisplayName(" ");
         item.setItemMeta(meta);
         for(int i=0;i<27;i++) {
-            if (!(i > 9 && i < 17))
-            inv.setItem(i, item);
+            if (!(i > 9 && i < 17)) inv.setItem(i, item);
         }
     }
 }

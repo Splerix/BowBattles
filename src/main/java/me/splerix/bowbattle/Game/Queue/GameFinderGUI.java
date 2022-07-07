@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameFinderGUI {
-    private Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_PURPLE + "Bow Battles Game Finder");
-    List<String> lore = new ArrayList<String>();
+    private final Inventory inv = Bukkit.createInventory(null, 27, ChatColor.DARK_PURPLE + "Bow Battles Game Finder");
+    List<String> lore = new ArrayList<>();
     ItemMeta meta;
     ItemStack bow = new ItemStack(Material.BOW);
     ItemStack sword = new ItemStack(Material.DIAMOND_SWORD);
@@ -56,7 +56,6 @@ public class GameFinderGUI {
         meta.setLore(lore);
         sword.setItemMeta(meta);
         lore.clear();
-        return;
     }
 
     private void setBowMeta() {
@@ -71,7 +70,6 @@ public class GameFinderGUI {
         meta.setLore(lore);
         bow.setItemMeta(meta);
         lore.clear();
-        return;
     }
 
     private void setEnderEyeMeta() {
@@ -83,7 +81,6 @@ public class GameFinderGUI {
         meta.setLore(lore);
         enderEye.setItemMeta(meta);
         lore.clear();
-        return;
     }
 
 }

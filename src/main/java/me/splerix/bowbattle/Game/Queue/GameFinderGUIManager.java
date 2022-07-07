@@ -10,8 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.util.UUID;
-
 public class GameFinderGUIManager implements Listener {
 
     SpawnInventory spawnInventory = new SpawnInventory();
@@ -31,7 +29,6 @@ public class GameFinderGUIManager implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
-        UUID uuid = player.getUniqueId();
         if (!(ChatColor.stripColor(e.getView().getTitle().toString()).equalsIgnoreCase("Bow Battles Game Finder"))) return;
         if (e.getCurrentItem() == null) return;
         if (e.getCurrentItem().getItemMeta() == null) return;

@@ -2,8 +2,6 @@ package me.splerix.bowbattle.Objects.Area;
 
 
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
 public class AreaTemplate extends AreaCalculator{
 
     public me.splerix.bowbattle.BowBattle plugin = me.splerix.bowbattle.BowBattle.getPlugin(me.splerix.bowbattle.BowBattle.class);

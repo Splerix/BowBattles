@@ -13,27 +13,24 @@ import java.util.*;
 import static me.splerix.bowbattle.Objects.Player.PlayerList.playerInfo;
 
 public class QueueManager {
-    private Plugin plugin;
-    private Area area = new Area();
-    private List<UUID> queueLine;
-    private QueueInventory queueInventory = new QueueInventory();
-    private Map<Integer, GameManager> games;
+    private final Plugin plugin;
+    private final Area area = new Area();
+    private final List<UUID> queueLine;
+    private final QueueInventory queueInventory = new QueueInventory();
+    private final Map<Integer, GameManager> games;
     public Map<UUID, Integer> getGameID;
-    private List<String> currentMaps;
+    private final List<String> currentMaps;
 
     public QueueManager(Plugin plugin) {
-        queueLine = new ArrayList<UUID>();
+        queueLine = new ArrayList<>();
         this.plugin = plugin;
-        games = new HashMap<Integer, GameManager>();
-        getGameID = new HashMap<UUID, Integer>();
-        currentMaps = new ArrayList<String>();
-    }
-
-    public boolean addPlayerToQueue(Player player) {
-        return addPlayerToQueue(player.getUniqueId());
+        games = new HashMap<>();
+        getGameID = new HashMap<>();
+        currentMaps = new ArrayList<>();
     }
     public boolean addPlayerToQueue(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
+        if (player == null) return false;
         PlayerState playerState= playerInfo.get(uuid).getPlayerState();
         if (!(playerState == PlayerState.OUTGAME)) return false;
         if (playerInfo.get(uuid).isDevMode()) return false;
@@ -48,7 +45,6 @@ public class QueueManager {
         return removePlayerFromQueue(player.getUniqueId());
     }
     public boolean removePlayerFromQueue(UUID uuid) {
-        Player player = Bukkit.getPlayer(uuid);
         if (!(playerInfo.get(uuid).getPlayerState()  == PlayerState.QUEUED)) return false;
         resetQueuedPlayer(uuid);
         queueLine.remove(uuid);
@@ -60,18 +56,16 @@ public class QueueManager {
         playerInfo.get(uuid).setPlayerState(PlayerState.OUTGAME);
         player.getInventory().remove(queueInventory.getLeaveQueueItem());
     }
-    public boolean startGame(@Nullable String forceMap) {
-        if (!(this.queueLine.size() > 0 && this.queueLine.size() <= 4)) return false;
-        List<UUID> queueLine = new ArrayList<UUID>();
+    public void startGame(@Nullable String forceMap) {
+        if (!(this.queueLine.size() > 0 && this.queueLine.size() <= 4)) return;
         int gameId = getGameId();
-        queueLine = this.queueLine;
+        List<UUID> queueLine = this.queueLine;
         for (UUID uuid : queueLine) {
             resetQueuedPlayer(uuid);
             getGameID.put(uuid, gameId);
         }
         games.put(gameId, new GameManager(plugin, gameId));
         games.get(gameId).startGame(forceMap, (ArrayList<UUID>) queueLine);
-        return true;
     }
 
     public void gameEnd(int gameId) {
@@ -103,7 +97,7 @@ public class QueueManager {
         return queueLine;
     }
     public boolean checkGameId(int gameId) {
-        return games.keySet().contains(gameId);
+        return games.containsKey(gameId);
     }
 
     public void clearQueueLine() {
@@ -116,7 +110,7 @@ public class QueueManager {
     private int getGameId() {
         Random r = new Random();
         int gameId = r.nextInt(4);
-        if (games.keySet().contains(gameId)) gameId = getGameId();
+        if (games.containsKey(gameId)) gameId = getGameId();
         return gameId;
     }
 

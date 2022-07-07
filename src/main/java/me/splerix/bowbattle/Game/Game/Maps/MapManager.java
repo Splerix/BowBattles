@@ -1,6 +1,5 @@
 package me.splerix.bowbattle.Game.Game.Maps;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 

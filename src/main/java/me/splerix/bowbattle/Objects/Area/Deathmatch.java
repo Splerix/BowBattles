@@ -5,9 +5,7 @@ import org.bukkit.Location;
 
 public class Deathmatch extends AreaTemplate{
 
-    private Location loc;
-
-
+    private final Location loc;
     private double deathmatchTPX;
     private double deathmatchTPY;
     private double deathmatchTPZ;

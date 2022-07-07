@@ -19,10 +19,6 @@ public class Area extends AreaTemplate {
     public Location getSpawnLocation() {
         return spawn.getLoc();
     }
-
-    public boolean inDeathmatch(Player player) {
-        return inDeathmatch(player.getLocation());
-    }
     public boolean inDeathmatch(Location loc) {
         return deathmatch.inDeathmatch(loc);
     }

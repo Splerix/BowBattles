@@ -63,10 +63,6 @@ public class GameMap extends AreaCalculator {
         }
         return false;
     }
-
-    public boolean inMap(Player player) {
-        return inMap(player.getLocation());
-    }
     public boolean inMap(Location loc) {
         return inCordArea(loc, mapArea);
     }

@@ -8,6 +8,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -38,7 +40,7 @@ public class PlayerList implements Listener {
     }
 
     public void onEnable() {
-        playerInfo = new HashMap<UUID, PlayerInfo>();
+        playerInfo = new HashMap<>();
         loadPlayerInfo();
         savePlayerInfo();
     }
@@ -49,18 +51,16 @@ public class PlayerList implements Listener {
 
     private void loadPlayerInfo() {
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-                    "C:\\Users\\kiant\\OneDrive\\Desktop\\StuffIDontUse\\Server\\server\\O\\BowBattle\\1.19 Bow Battle\\plugins\\BowBattle\\PlayerData.yml"));
-            playerInfo = (Map) in.readObject();
-        } catch (Exception e) {
-            System.out.println("FAILED LOAD");
-            System.out.println(e.getMessage() + " :: " + e.getCause());
-        }
+            ObjectInputStream in = new ObjectInputStream(Files.newInputStream(Paths.get(
+                    "C:\\Users\\kiant\\OneDrive\\Desktop\\StuffIDontUse\\Server\\server\\O\\BowBattle\\1.19 Bow Battle\\plugins\\BowBattle\\PlayerData.yml")));
+            if (playerInfo != null) playerInfo = (Map<UUID, PlayerInfo>) in.readObject();
+            else System.out.println("FAILED LOAD : Instances don't match");
+        } catch (Exception e) {System.out.println("FAILED LOAD " + e.getMessage() + " :: " + e.getCause());}
     }
     public void savePlayerInfo() {
         try{
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
-                    "C:\\Users\\kiant\\OneDrive\\Desktop\\StuffIDontUse\\Server\\server\\O\\BowBattle\\1.19 Bow Battle\\plugins\\BowBattle\\PlayerData.yml"));
+            ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(Paths.get(
+                    "C:\\Users\\kiant\\OneDrive\\Desktop\\StuffIDontUse\\Server\\server\\O\\BowBattle\\1.19 Bow Battle\\plugins\\BowBattle\\PlayerData.yml")));
             out.writeObject(playerInfo);
         } catch(Exception e) {
             System.out.println("FAILED SAVE");

@@ -8,7 +8,6 @@ import me.splerix.bowbattle.Game.Game.PlayerGameInfo.PlayerTeam;
 import me.splerix.bowbattle.Game.Game.Scoreboard.ScoreboardManager;
 import me.splerix.bowbattle.Objects.Area.Area;
 import me.splerix.bowbattle.Objects.Player.PlayerState;
-import me.splerix.bowbattle.Objects.TimeFormat;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -26,17 +25,17 @@ import static me.splerix.bowbattle.Objects.Player.PlayerList.playerInfo;
 
 public class GameManager {
 
-    private Plugin plugin;
+    private final Plugin plugin;
     private GameState gameState;
     public MapManager mapManager;
     private ScoreboardManager scoreboardManager;
-    private int gameId;
+    private final int gameId;
     private int loopId;
 
     public Map<PlayerTeam, UUID> teamToUUID;
-    private Map<UUID, PlayerGameInfo> playerGameInfo;
+    private final Map<UUID, PlayerGameInfo> playerGameInfo;
     private Collection<UUID> currentPlayerList;
-    int ammountOfPlayers;
+    int amountOfPlayers;
     private int seconds = 300;
     private boolean overtime = false;
 
@@ -45,12 +44,12 @@ public class GameManager {
         this.plugin = plugin;
         gameState = GameState.READY;
         this.gameId = gameId;
-        playerGameInfo = new HashMap<UUID, PlayerGameInfo>();
-        teamToUUID = new HashMap<PlayerTeam, UUID>();
+        playerGameInfo = new HashMap<>();
+        teamToUUID = new HashMap<>();
     }
 
-    public boolean startGame(@Nullable String forceMapName, ArrayList<UUID> playerList) {
-        if (playerList.size() > 4) return false;
+    public void startGame(@Nullable String forceMapName, ArrayList<UUID> playerList) {
+        if (playerList.size() > 4) return;
         Collections.shuffle(playerList);
         for (UUID uuid : playerList) {
             playerInfo.get(uuid).setPlayerState(PlayerState.INGAME);
@@ -58,7 +57,7 @@ public class GameManager {
             playerGameInfo.put(uuid,new PlayerGameInfo(uuid, team));
             teamToUUID.put(team, uuid);
         }
-        ammountOfPlayers = playerList.size();
+        amountOfPlayers = playerList.size();
         gameState = GameState.STARTING;
         currentPlayerList = playerGameInfo.keySet();
 
@@ -72,43 +71,35 @@ public class GameManager {
 
         initiatePlayers();
         gameLoop();
-        return true;
     }
 
     private void gameLoop() {
         seconds = 150;
         overtime = false;
-        loopId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable(){
-            @Override
-            public void run() {
-                seconds--;
-                if (!(overtime) && seconds <= 0) {
-                    initiateOvertime();
+        loopId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            seconds--;
+            if (!(overtime) && seconds <= 0) {
+                initiateOvertime();
+            }
+            if (overtime && seconds <= 0) {
+                for (UUID uuid : currentPlayerList) {
+                    Bukkit.getPlayer(uuid).getPlayer().sendMessage(
+                            ChatColor.DARK_PURPLE + "The game ran out of time");
                 }
-                if (overtime && seconds <= 0) {
-                    for (UUID uuid : currentPlayerList) {
-                        Bukkit.getPlayer(uuid).getPlayer().sendMessage(
-                                ChatColor.DARK_PURPLE + "The game ran out of time");
+                gameEnd(true);
+            }
+
+            for (UUID uuid : playerGameInfo.keySet()) {
+                if (playerGameInfo.get(uuid).getAlive()){
+                    Player player = Bukkit.getPlayer(uuid);
+                    if (mapManager.getGameMap().inOwnArea(player, playerGameInfo.get(uuid))) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 21, 1));
                     }
-                    gameEnd(true);
-                }
 
-                for (UUID uuid : playerGameInfo.keySet()) {
-                    if (playerGameInfo.get(uuid).getAlive()){
-                        Player player = Bukkit.getPlayer(uuid);
-                        if (mapManager.getGameMap().inOwnArea(player, playerGameInfo.get(uuid))) {
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 21, 1));
-                        }
-
-                        if (playerGameInfo.get(uuid).getLifes() <= 0 || (!(playerGameInfo.get(uuid).getAlive()))) {
-                            player.teleport(mapManager.getGameMap().getSpectatorSpawn());
-                            player.setGameMode(GameMode.SPECTATOR);
-                            playerEliminated(uuid);
-                        }
-                    } else {
-                        if (playerInfo.get(uuid).getPlayerState() == PlayerState.INGAME) {
-
-                        }
+                    if (playerGameInfo.get(uuid).getLifes() <= 0 || (!(playerGameInfo.get(uuid).getAlive()))) {
+                        player.teleport(mapManager.getGameMap().getSpectatorSpawn());
+                        player.setGameMode(GameMode.SPECTATOR);
+                        playerEliminated(uuid);
                     }
                 }
             }
@@ -159,8 +150,7 @@ public class GameManager {
             playerGI.incKills();
             playerGameInfo.put(killerUUID, playerGI);
             killer.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
-        } catch (Exception ex) {
-        }
+        } catch (Exception ex) {}
         playerGI = playerGameInfo.get(uuid);
         playerGI.decLifes();
         playerGI.incDeaths();
@@ -179,7 +169,7 @@ public class GameManager {
         if (playerGameInfo.get(uuid).getAlive()){
             Kit kit = new Kit();
             kit.giveKit(player);
-            invulernableTimer(player);
+            invulnerableTimer(player);
         } else {
             player.setGameMode(GameMode.SPECTATOR);
         }
@@ -188,9 +178,6 @@ public class GameManager {
 
     public MapManager getMapManager() {
         return mapManager;
-    }
-    public GameState getGameState() {
-        return gameState;
     }
     public void removePlayerFromGame(UUID uuid) {
         queueManager.getGameID.remove(uuid);
@@ -274,14 +261,11 @@ public class GameManager {
             player.playSound(player.getLocation(), Sound.ENTITY_RAVAGER_ROAR, 1, 1);
         }
     }
-    private void invulernableTimer(Player player) {
+    private void invulnerableTimer(Player player) {
         player.setInvulnerable(true);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                player.sendMessage(ChatColor.GOLD + "Your spawn invulnerability has worn off");
-                player.setInvulnerable(false);
-            }
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            player.sendMessage(ChatColor.GOLD + "Your spawn invulnerability has worn off");
+            player.setInvulnerable(false);
         }, 100);
     }
 }

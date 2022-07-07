@@ -5,11 +5,9 @@ import org.bukkit.plugin.Plugin;
 
 public class Manager {
 
-    private Plugin plugin;
     public static QueueManager queueManager;
 
     public Manager(Plugin plugin) {
-        this.plugin = plugin;
         queueManager = new QueueManager(plugin);
 
     }

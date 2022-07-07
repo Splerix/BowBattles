@@ -26,8 +26,7 @@ public class AreaCalculator {
 
         if (x >= lowX && x <= highX)
             if (y >= lowY && y <= highY)
-                if (z >= lowZ && z <= highZ)
-                    return true;
+                return z >= lowZ && z <= highZ;
 
         return false;
     }

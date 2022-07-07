@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 public class Spawn extends AreaTemplate {
-    private Location loc;
+    private final Location loc;
     private double spawnX;
     private double spawnY;
     private double spawnZ;
