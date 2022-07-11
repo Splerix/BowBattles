@@ -25,6 +25,9 @@ import static me.splerix.bowbattle.Objects.Player.PlayerList.playerInfo;
 
 public class GameManager {
 
+    private final int GAMESECONDS = 420;
+    private final int OVERTIMESECONDS = 300;
+
     private final Plugin plugin;
     private GameState gameState;
     public MapManager mapManager;
@@ -36,7 +39,7 @@ public class GameManager {
     private final Map<UUID, PlayerGameInfo> playerGameInfo;
     private Collection<UUID> currentPlayerList;
     int amountOfPlayers;
-    private int seconds = 300;
+    private int seconds = GAMESECONDS;
     private boolean overtime = false;
 
 
@@ -64,7 +67,7 @@ public class GameManager {
         mapManager = new MapManager(plugin);
         mapManager.onGameStart(forceMapName);
 
-        scoreboardManager = new ScoreboardManager(gameId, playerGameInfo.keySet(), mapManager.getMapName(), plugin);
+        scoreboardManager = new ScoreboardManager(gameId, playerGameInfo.keySet(), mapManager.getMapName());
 
         queueManager.clearQueueLine();
         queueManager.addCurrentMap(mapManager.getMapName());
@@ -74,7 +77,7 @@ public class GameManager {
     }
 
     private void gameLoop() {
-        seconds = 150;
+        seconds = GAMESECONDS;
         overtime = false;
         loopId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             seconds--;
@@ -103,10 +106,11 @@ public class GameManager {
                     }
                 }
             }
+            scoreboardManager.updateScoreboard();
         }, 1, 20);
     }
     private void playerEliminated(UUID uuid) {
-        playerInfo.get(uuid).setPlayerState(PlayerState.OUTGAME);
+        playerInfo.get(uuid).setPlayerState(PlayerState.SPECTATOR);
         playerGameInfo.get(uuid).setAlive(false);
         queueManager.removePlayerFromGames(uuid);
     }
@@ -174,8 +178,6 @@ public class GameManager {
             player.setGameMode(GameMode.SPECTATOR);
         }
     }
-
-
     public MapManager getMapManager() {
         return mapManager;
     }
@@ -194,9 +196,6 @@ public class GameManager {
     public boolean isOvertime() {
         return overtime;
     }
-
-
-
     private void restartGame() {
         for(UUID uuid : currentPlayerList) {
             Player player = Bukkit.getPlayer(uuid);
@@ -253,7 +252,7 @@ public class GameManager {
     private void initiateOvertime() {
         overtime = true;
         mapManager.initiateOvertime();
-        seconds = 120;
+        seconds = OVERTIMESECONDS;
         gameState = GameState.OVERTIME;
         for (UUID uuid : currentPlayerList) {
             Player player = Bukkit.getPlayer(uuid);
